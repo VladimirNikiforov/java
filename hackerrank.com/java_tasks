@@ -1,0 +1,1529 @@
+import java.io.*;
+import java.util.*;
+
+interface AdvancedArithmetic{
+    int divisorSum(int n);
+}
+//Write your code here
+class Calculator implements AdvancedArithmetic {
+    public int divisorSum(int n){
+        int sumdiv = 1;
+        if (n > 1) {
+            sumdiv += n;
+        }
+        int i = 2;
+        for (i = 2; i <= n / 2; i++) {
+            if (n % i == 0) {
+                sumdiv += i;
+            }
+        }
+        return sumdiv;
+    }
+}
+class Solution {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        scan.close();
+
+        AdvancedArithmetic myCalculator = new Calculator();
+        int sum = myCalculator.divisorSum(n);
+        System.out.println("I implemented: " + myCalculator.getClass().getInterfaces()[0].getName() );
+        System.out.println(sum);
+    }
+}
+################################################
+        ################################################
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    static void countApplesAndOranges(int s, int t, int a, int b, int[] apples, int[] oranges) {
+        // Complete this function
+        int l = 0;
+        int r = 0;
+        for(int ap : apples) {
+            if((a + ap >= s) && (a + ap <= t)){
+                l += 1;
+            }
+        }
+        for(int or : oranges) {
+            if((b + or >= s) && (b + or <= t)){
+                r += 1;
+            }
+        }
+        //System.out.format("%d %d", l,r);
+        System.out.println(l);
+        System.out.println(r);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int s = in.nextInt();
+        int t = in.nextInt();
+        int a = in.nextInt();
+        int b = in.nextInt();
+        int m = in.nextInt();
+        int n = in.nextInt();
+        int[] apple = new int[m];
+        for(int apple_i = 0; apple_i < m; apple_i++){
+            apple[apple_i] = in.nextInt();
+        }
+        int[] orange = new int[n];
+        for(int orange_i = 0; orange_i < n; orange_i++){
+            orange[orange_i] = in.nextInt();
+        }
+        countApplesAndOranges(s, t, a, b, apple, orange);
+        in.close();
+    }
+}
+################################################
+        ################################################
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+    //0 3 4 2
+    static String kangaroo(int x1, int v1, int x2, int v2) {
+        // Complete this function
+        if((x1==x2) && (v1!=v2)) {return "NO";}
+        if((x1!=x2) && (v1==v2)) {return "NO";}
+        if((x1<x2) && (v1<=v2)) return "NO";
+        if((x1>x2) && (v1>=v2)) return "NO";
+        if((x1==x2) && (v1==v2)) return "YES";
+        int p1 = x1;
+        int p2 = x2;
+        while ((((x1<x2) && (v1>v2)) && (p1 < p2)) | (((x1>x2) && (v1<v2)) && (p1 > p2))){
+            p1 += v1;
+            p2 += v2;
+        }
+        if(p1 == p2) {return "YES";} else {return "NO";}
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int x1 = in.nextInt();
+        int v1 = in.nextInt();
+        int x2 = in.nextInt();
+        int v2 = in.nextInt();
+        String result = kangaroo(x1, v1, x2, v2);
+        System.out.println(result);
+    }
+}
+################################################
+        ################################################
+        # buble sort in java
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    public static void swap(int[] x, int a, int b) {
+        int temp = x[a];
+        x[a] = x[b];
+        x[b] = temp;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] a = new int[n];
+        for(int a_i=0; a_i < n; a_i++){
+            a[a_i] = in.nextInt();
+        }
+        int numSwaps = 0;
+        // Write Your Code Here
+        for (int i = 0; i < n; i++) {
+            // Track number of elements swapped during a single array traversal
+            int numberOfSwaps = 0;
+            for (int j = 0; j < n - 1; j++) {
+                // Swap adjacent elements if they are in decreasing order
+                if (a[j] > a[j + 1]) {
+                    //swap(a[j], a[j + 1]);
+                    swap(a, j, j + 1);
+                    numberOfSwaps++;
+                }
+            }
+            // If no elements were swapped during a traversal, array is sorted
+            if (numberOfSwaps == 0) {
+                break;
+            } else {
+                numSwaps += numberOfSwaps;
+            }
+        }
+        System.out.format("Array is sorted in %d swaps.\n", numSwaps);
+        System.out.format("First Element: %d\n", a[0]);
+        System.out.format("Last Element: %d\n", a[a.length-1]);
+    }
+}
+
+################################################
+        ################################################
+        # find divides number between two arrays
+        # https://www.hackerrank.com/challenges/between-two-sets/problem
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    static int getTotalX(int[] a, int[] b) {
+        // Complete this function
+        Arrays.sort(a);
+        Arrays.sort(b);
+        int max_a = a[a.length-1];
+        int min_b = b[0];
+        int a_i = 0;
+        int b_i = 0;
+        int cnt = 0;
+        for (int i = max_a; i <= min_b; i++) {
+            a_i = 0;
+            b_i = 0;
+            while ((a_i < a.length) && (i % a[a_i] == 0)){
+                a_i++;
+            }
+            if((a_i == a.length) && (i % a[a.length-1] == 0)){
+                while ((b_i < b.length) && (b[b_i] % i == 0)){
+                    b_i++;
+                }
+                if((b_i == b.length) && (b[b.length-1] % i == 0)) cnt++;
+            }
+        }
+        return(cnt);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int m = in.nextInt();
+        int[] a = new int[n];
+        for(int a_i = 0; a_i < n; a_i++){
+            a[a_i] = in.nextInt();
+        }
+        int[] b = new int[m];
+        for(int b_i = 0; b_i < m; b_i++){
+            b[b_i] = in.nextInt();
+        }
+        int total = getTotalX(a, b);
+        System.out.println(total);
+        in.close();
+    }
+}
+
+
+################################################
+        ################################################
+
+
+        import java.io.*;
+        import java.util.*;
+
+public class Solution {
+
+    static int getSQ(int[][] rc, int[][] hw, int i, int j, int h, int w) {
+        int sum = 0;
+        for(int x=0; x < h; x++){
+            for(int y=0; y < w; y++){
+                int ssum = (rc[i+x][j+y] - hw[x][y]);
+                sum += ssum * ssum;
+            }
+        }
+        return(sum);
+    }
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        /* Read */
+        Scanner in = new Scanner(System.in);
+        int r = in.nextInt();
+        int c = in.nextInt();
+        int[][] rc = new int[r][c];
+        for(int i=0; i < r; i++){
+            for(int j=0; j < c; j++){
+                rc[i][j] = in.nextInt();
+            }
+        }
+        int h = in.nextInt();
+        int w = in.nextInt();
+        int[][] hw = new int[h][w];
+        for(int i=0; i < h; i++){
+            for(int j=0; j < w; j++){
+                hw[i][j] = in.nextInt();
+            }
+        }
+        /* Calc */
+        int[][] sq = new int[r-h+1][c-w+1];
+        long min = 999999999;
+        final int r_h = r-h+1;
+        final int c_w = c-w+1;
+        for(int i=0; i < r_h; i++){
+            for(int j=0; j < c_w; j++){
+                //sq[i][j] = getSQ(rc,hw,i,j,h,w);
+                for(int x=0; x < h; x++){
+                    for(int y=0; y < w; y++){
+                        int ssum = (rc[i+x][j+y] - hw[x][y]);
+                        sq[i][j] += ssum * ssum;
+                    }
+                }
+                if(sq[i][j] < min){
+                    min = sq[i][j];
+                }
+            }
+        }
+        /* Find */
+        int i = 0;
+        int j = 0;
+        outerloop:
+        for(i = 0; i < r_h; i++){
+            for(j = 0; j < c_w; j++){
+                if(sq[i][j] == min) {
+                    break outerloop;
+                }
+            }
+        }
+        /* Print */
+        System.out.println(min);
+        System.out.format("%d %d\n",i+1,j+1);
+    }
+}
+
+
+################################################
+        ################################################
+
+        #java generic
+        #http://developer.alexanderklimov.ru/android/java/generic.php
+        import java.util.*;
+
+class Printer <T> {
+    /**
+     *    Method Name: printArray
+     *    Print each element of the generic array on a new line. Do not return anything.
+     *    @param A generic array
+     **/
+
+    // Write your code here
+    private T[] t;
+
+    //public void printArray(T[] t) { System.out.println(Arrays.asList(t)); }
+    public void printArray(T[] t) { Arrays.stream(t).forEach(System.out::println); }
+
+}
+
+public class Generics {
+
+    public static void main(String args[]){
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        Integer[] intArray = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            intArray[i] = scanner.nextInt();
+        }
+
+        n = scanner.nextInt();
+        String[] stringArray = new String[n];
+        for (int i = 0; i < n; i++) {
+            stringArray[i] = scanner.next();
+        }
+
+        Printer<Integer> intPrinter = new Printer<Integer>();
+        Printer<String> stringPrinter = new Printer<String>();
+        intPrinter.printArray( intArray  );
+        stringPrinter.printArray( stringArray );
+        if(Printer.class.getDeclaredMethods().length > 1){
+            System.out.println("The Printer class should only have 1 method named printArray.");
+        }
+    }
+}
+
+################################################
+        ################################################
+        # Binary Tree Search Java
+
+        #include <iostream>
+#include <cstddef>
+
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node *left;
+    Node *right;
+    Node(int d){
+        data = d;
+        left = NULL;
+        right = NULL;
+    }
+};
+class Solution{
+    public:
+    Node* insert(Node* root, int data) {
+        if(root == NULL) {
+            return new Node(data);
+        }
+        else {
+            Node* cur;
+            if(data <= root->data){
+                cur = insert(root->left, data);
+                root->left = cur;
+            }
+            else{
+                cur = insert(root->right, data);
+                root->right = cur;
+            }
+
+            return root;
+        }
+    }
+
+    int getHeight(Node* root){
+        //Write your code here
+        if(root == NULL) {
+            return -1;
+        }
+        int l = getHeight(root->left);
+        int r = getHeight(root->right);
+        if(l>r) {
+            return 1 + l;
+        } else {
+            return 1 + r;
+        }
+    }
+
+
+}; //End of Solution
+
+int main() {
+        Solution myTree;
+        Node* root = NULL;
+        int t;
+        int data;
+
+        cin >> t;
+
+        while(t-- > 0){
+        cin >> data;
+        root = myTree.insert(root, data);
+        }
+        int height = myTree.getHeight(root);
+        cout << height;
+
+        return 0;
+        }
+        ################################################
+        ################################################
+        # https://www.hackerrank.com/challenges/breaking-best-and-worst-records/problem
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    static int[] breakingRecords(int[] score) {
+        // Complete this function
+        long min = score[0];
+        long max = score[0];
+        int cmin = 0;
+        int cmax = 0;
+        for (int i=0; i < score.length; i++) {
+            if(score[i]<min) {
+                cmin++;
+                min = score[i];
+            }
+            if(score[i]>max) {
+                cmax++;
+                max = score[i];
+            }
+        }
+        int[] res = new int[2];
+        res[0] = cmax;
+        res[1] = cmin;
+        return(res);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] score = new int[n];
+        for(int score_i = 0; score_i < n; score_i++){
+            score[score_i] = in.nextInt();
+        }
+        int[] result = breakingRecords(score);
+        for (int i = 0; i < result.length; i++) {
+            System.out.print(result[i] + (i != result.length - 1 ? " " : ""));
+        }
+        System.out.println("");
+
+
+        in.close();
+    }
+}
+
+################################################
+        ################################################
+        #https://www.hackerrank.com/challenges/30-binary-trees/problem
+
+        import java.util.*;
+        import java.io.*;
+class Node{
+    Node left,right;
+    int data;
+    Node(int data){
+        this.data=data;
+        left=right=null;
+    }
+}
+class Solution{
+    static void levelOrder(Node root){
+        //Write your code here
+        if(root != null) {
+            // enqueue current root
+            //queue.enqueue(root);
+            Queue < Node > q = new LinkedList < Node > ();
+            q.add(root);
+            String s = "";
+
+            // while there are nodes to process
+            while( !q.isEmpty() ) {
+                // dequeue next node
+                Node t = q.poll();
+
+                if(s.length() == 0){
+                    s+= t.data;
+                } else {
+                    s+= " "+t.data;
+                }
+
+                // enqueue child elements from next level in order
+                if( t.left != null) {
+                    q.add(t.left);
+                }
+                if( t.right != null) {
+                    q.add(t.right);
+                }
+            }
+            System.out.print(s);
+        }
+    }
+    public static Node insert(Node root,int data){
+        if(root==null){
+            return new Node(data);
+        }
+        else{
+            Node cur;
+            if(data<=root.data){
+                cur=insert(root.left,data);
+                root.left=cur;
+            }
+            else{
+                cur=insert(root.right,data);
+                root.right=cur;
+            }
+            return root;
+        }
+    }
+    public static void main(String args[]){
+        Scanner sc=new Scanner(System.in);
+        int T=sc.nextInt();
+        Node root=null;
+        while(T-->0){
+            int data=sc.nextInt();
+            root=insert(root,data);
+        }
+        levelOrder(root);
+    }
+}
+
+
+################################################
+        ################################################
+        #https://www.hackerrank.com/challenges/the-birthday-bar/problem
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    static int solve(int n, int[] s, int d, int m){
+        // Complete this function
+        int c = 0;
+        for(int i=0; i<= n-m; i++){
+            if(Arrays.stream(s,i,i+m).sum() == d) {
+                c++;
+            }
+        }
+        return(c);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] s = new int[n];
+        for(int s_i=0; s_i < n; s_i++){
+            s[s_i] = in.nextInt();
+        }
+        int d = in.nextInt();
+        int m = in.nextInt();
+        int result = solve(n, s, d, m);
+        System.out.println(result);
+    }
+}
+
+################################################
+        ################################################
+        import java.util.Scanner;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int i = scan.nextInt();
+
+        // Write your code here.
+        double d = scan.nextDouble();
+        scan.nextLine();
+        String s = scan.nextLine();
+
+        System.out.println("String: " + s);
+        System.out.println("Double: " + d);
+        System.out.println("Int: " + i);
+    }
+}
+
+################################################
+        ################################################
+        import java.io.*;
+        import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int i = scan.nextInt();
+
+        for(int x=1;x<=10;x++){
+            System.out.printf("%d x %d = %d%n",i,x,i*x);
+        }
+    }
+}
+
+################################################
+        ################################################
+
+        import java.io.*;
+        import java.util.*;
+class Node{
+    int data;
+    Node next;
+    Node(int d){
+        data=d;
+        next=null;
+    }
+
+}
+class Solution
+{
+    public static Node removeDuplicates(Node head) {
+        //Write your code here
+        if(head==null){
+            return(head);
+        } else {
+            Node s=head;
+            while(head!=null && s.next!=null){
+                if(s.data==s.next.data){
+                    s.next=s.next.next;
+                } else {
+                    s=s.next;
+                }
+            }
+            return(head);
+        }
+    }
+    public static  Node insert(Node head,int data)
+    {
+        Node p=new Node(data);
+        if(head==null)
+            head=p;
+        else if(head.next==null)
+            head.next=p;
+        else
+        {
+            Node start=head;
+            while(start.next!=null)
+                start=start.next;
+            start.next=p;
+
+        }
+        return head;
+    }
+    public static void display(Node head)
+    {
+        Node start=head;
+        while(start!=null)
+        {
+            System.out.print(start.data+" ");
+            start=start.next;
+        }
+    }
+    public static void main(String args[])
+    {
+        Scanner sc=new Scanner(System.in);
+        Node head=null;
+        int T=sc.nextInt();
+        while(T-->0){
+            int ele=sc.nextInt();
+            head=insert(head,ele);
+        }
+        head=removeDuplicates(head);
+        display(head);
+
+    }
+}
+################################################
+        ################################################
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    static int divisibleSumPairs(int n, int k, int[] ar) {
+        // Complete this function
+        int c = 0;
+        for(int i=0;i<n-1;i++){
+            for(int j=1;j<n;j++){
+                if((i<j) && ((ar[i]+ar[j]) % k == 0)) {
+                    c++;
+                }
+            }
+        }
+        return c;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int k = in.nextInt();
+        int[] ar = new int[n];
+        for(int ar_i = 0; ar_i < n; ar_i++){
+            ar[ar_i] = in.nextInt();
+        }
+        int result = divisibleSumPairs(n, k, ar);
+        System.out.println(result);
+    }
+}
+
+################################################
+        ################################################
+        # https://www.hackerrank.com/challenges/java-loops/problem
+
+        import java.util.*;
+        import java.io.*;
+
+class Solution{
+    public static void main(String []argh){
+        Scanner in = new Scanner(System.in);
+        int t=in.nextInt();
+        for(int i=0;i<t;i++){
+            int a = in.nextInt();
+            int b = in.nextInt();
+            int n = in.nextInt();
+            int s = 0;
+            String ss = "";
+            for(int x = 0; x<n; x++){
+                s = a;
+                for(int y = 0; y <= x; y++){
+                    s += Math.pow(2,y)*b;
+                }
+                if(ss == ""){
+                    ss += s;
+                }else{
+                    ss += " "+s;
+                }
+            }
+            System.out.println(ss);
+        }
+        in.close();
+    }
+}
+
+################################################
+        ################################################
+
+        import java.util.*;
+        import java.io.*;
+
+
+
+class Solution{
+    public static void main(String []argh)
+    {
+
+
+
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+
+        for(int i=0;i<t;i++)
+        {
+
+            try
+            {
+                long x=sc.nextLong();
+                System.out.println(x+" can be fitted in:");
+                if(x>=-128 && x<=127)System.out.println("* byte");
+                //Complete the code
+                if(x>=-Math.pow(2,15) && x<=Math.pow(2,15)-1)System.out.println("* short");
+                if(x>=-Math.pow(2,31) && x<=Math.pow(2,31)-1)System.out.println("* int");
+                if(x>=-Math.pow(2,63) && x<=Math.pow(2,63)-1)System.out.println("* long");
+            }
+            catch(Exception e)
+            {
+                System.out.println(sc.next()+" can't be fitted anywhere.");
+            }
+
+        }
+    }
+}
+
+################################################
+        ################################################
+
+        import java.io.*;
+        import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int i = 1;
+        while(sc.hasNext()) {
+            String s=sc.nextLine();
+            System.out.printf("%d %s%n",i,s);
+            i++;
+        }
+
+    }
+}
+################################################
+        ################################################
+        #prime/not prime
+        #https://www.hackerrank.com/challenges/30-running-time-and-complexity/problem
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. */
+        Scanner sc = new Scanner(System.in);
+        int t=sc.nextInt();
+
+        for(int i=0;i<t;i++)
+        {
+            long x=sc.nextLong();
+            if(x==1){
+                System.out.println("Not prime");
+            } else {
+                int prime = 1;
+                for(int j=2;j<=Math.sqrt(x);j++) {
+                    if(x%j==0) {
+                        prime = 0;
+                        break;
+                    }
+                }
+                System.out.println(prime==1?"Prime":"Not prime");
+            }
+        }
+
+    }
+}
+
+
+################################################
+        ################################################
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    static int migratoryBirds(int n, int[] ar) {
+        // Complete this function
+        int []x = new int [6];
+
+        for(int id:ar) x[id]++;
+
+        int val = 0;
+        int k=0;
+
+        for(int i =1;i<6;i++){
+            if(x[i]>val){
+                val = x[i];
+                k =  i;
+            }
+        }
+        return k;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] ar = new int[n];
+        for(int ar_i = 0; ar_i < n; ar_i++){
+            ar[ar_i] = in.nextInt();
+        }
+        int result = migratoryBirds(n, ar);
+        System.out.println(result);
+    }
+}
+
+################################################
+        ################################################
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+    //Write your code here
+    static Scanner input = new Scanner(System.in);
+    static boolean flag = true;
+    static int B = input.nextInt();
+    static int H = input.nextInt();
+
+    static{
+        try{
+            if(B <= 0 || H <= 0){
+                flag = false;
+                throw new Exception("Breadth and height must be positive");
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+
+    }
+    public static void main(String[] args){
+        if(flag){
+            int area=B*H;
+            System.out.print(area);
+        }
+
+    }//end of main
+
+}//end of class
+
+################################################
+        ################################################
+        # int to string
+
+        import java.util.*;
+        import java.security.*;
+public class Solution {
+    public static void main(String[] args) {
+
+        DoNotTerminate.forbidExit();
+
+        try {
+            Scanner in = new Scanner(System.in);
+            int n = in .nextInt();
+            in.close();
+            //String s=???; Complete this line below
+            //Write your code here
+            String s=Integer.toString(n);
+            if (n == Integer.parseInt(s)) {
+                System.out.println("Good job");
+            } else {
+                System.out.println("Wrong answer.");
+            }
+        } catch (DoNotTerminate.ExitTrappedException e) {
+            System.out.println("Unsuccessful Termination!!");
+        }
+    }
+}
+
+//The following class will prevent you from terminating the code using exit(0)!
+class DoNotTerminate {
+
+    public static class ExitTrappedException extends SecurityException {
+
+        private static final long serialVersionUID = 1;
+    }
+
+    public static void forbidExit() {
+        final SecurityManager securityManager = new SecurityManager() {
+            @Override
+            public void checkPermission(Permission permission) {
+                if (permission.getName().contains("exitVM")) {
+                    throw new ExitTrappedException();
+                }
+            }
+        };
+        System.setSecurityManager(securityManager);
+    }
+}
+
+
+################################################
+        ################################################
+        import java.io.*;
+        import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner in = new Scanner(System.in);
+        String[] Sa = in.nextLine().split(" ");
+        String[] Se = in.nextLine().split(" ");
+        in.close();
+        int Da = Integer.parseInt(Sa[0]);
+        int Ma = Integer.parseInt(Sa[1]);
+        int Ya = Integer.parseInt(Sa[2]);
+        int De = Integer.parseInt(Se[0]);
+        int Me = Integer.parseInt(Se[1]);
+        int Ye = Integer.parseInt(Se[2]);
+        int fine = 0;
+        if(((Ya <= Ye) && (Ma <= Me) && (Da <= De)) || ((Ya == Ye) && (Ma < Me)) || (Ya < Ye)){
+            fine = 0;
+        } else {
+            if((Ya == Ye) && (Ma == Me)) {
+                fine = (Da - De)*15;
+            } else {
+                if(Ya == Ye) {
+                    fine = (Ma - Me)*500;
+                } else {
+                    fine = 10000;
+                }
+            }
+        }
+        System.out.println(fine);
+    }
+}
+
+################################################
+        ################################################
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    static String solve(int year){
+        // Complete this function
+        if(year == 1918) {
+            return "26.09.1918";
+        } else if(((year <= 1917) && (year%4 == 0)) || ((year > 1918) && (year%400 == 0 || ((year%4 == 0) && (year%100 != 0))))){
+            return "12.09."+year;
+        } else {
+            return "13.09."+year;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int year = in.nextInt();
+        String result = solve(year);
+        System.out.println(result);
+    }
+}
+
+################################################
+        ################################################
+
+        import java.util.Scanner;
+        import java.util.Calendar;
+
+public class Solution {
+    public static String getDay(String day, String month, String year) {
+        /*
+         * Write your code here.
+         */
+        Calendar cal = Calendar.getInstance();
+        cal.set(Integer.parseInt(year),Integer.parseInt(month)-1,Integer.parseInt(day));
+        int DAY_OF_WEEK=cal.get(Calendar.DAY_OF_WEEK);
+        String[] weekdays = {"SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"};
+        return weekdays[DAY_OF_WEEK-1];
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String month = in.next();
+        String day = in.next();
+        String year = in.next();
+
+        System.out.println(getDay(day, month, year));
+    }
+}
+################################################
+        ################################################
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double payment = scanner.nextDouble();
+        scanner.close();
+
+        // Write your code here.
+        String us = NumberFormat.getCurrencyInstance(Locale.US).format(payment);//getCurrencyInstance
+        String india = NumberFormat.getCurrencyInstance(new Locale("en","IN")).format(payment);//getCurrencyInstance
+        String china = NumberFormat.getCurrencyInstance(Locale.CHINA).format(payment);//getCurrencyInstance
+        String france = NumberFormat.getCurrencyInstance(Locale.FRANCE).format(payment);//getCurrencyInstance
+
+        System.out.println("US: " + us);
+        System.out.println("India: " + india);
+        System.out.println("China: " + china);
+        System.out.println("France: " + france);
+    }
+}
+
+
+################################################
+        ################################################
+        # array -> left rotation
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    public static void performLeftRotation(int n, int k, int[] a) {
+        int[] copy = new int[n];
+        System.arraycopy(a, k, copy, 0, (n - k));
+        System.arraycopy(a, 0, copy, (n - k), (n - (n - k)));
+        System.out.println(Arrays.toString(copy).replaceAll("\\[|\\]|,", ""));
+        //System.out.println(String.join(" ", copy));
+        //Arrays.stream(copy).forEach(System.out::println);
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int k = in.nextInt();
+        int a[] = new int[n];
+        for(int a_i=0; a_i < n; a_i++){
+            a[a_i] = in.nextInt();
+        }
+        performLeftRotation(n,k,a);
+    }
+}
+
+## alternate searching of final index!
+        for(int i = 0; i < lengthOfArray; i++){
+        int newLocation = (i + (lengthOfArray - shiftAmount)) % lengthOfArray;
+        a[newLocation] = in.nextInt();
+        }
+
+        ################################################
+        ################################################
+        import java.io.*;
+        import java.util.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = Integer.parseInt(in.nextLine());
+        String[] stringArray = new String[n];
+        for (int i = 0; i < n; i++) {
+            stringArray[i] = in.nextLine();
+        }
+        Arrays.sort(stringArray);
+        Pattern p = Pattern.compile("(.*)\\s([a-z]*@gmail\\.com)");
+        for (int i = 0; i < n; i++) {
+            Matcher m = p.matcher(stringArray[i]);
+            if (m.find()) {
+                System.out.println(m.group(1));
+            }
+        }
+    }
+}
+
+################################################
+        ################################################
+public class Solution {
+
+    public static void main(String[] args){
+        Class student = Student.class;
+        Method[] methods = student.getDeclaredMethods();
+
+        ArrayList<String> methodList = new ArrayList<>();
+        for(int i=0;i<methods.length;i++){
+            methodList.add(methods[i].getName());
+        }
+        Collections.sort(methodList);
+        for(String name: methodList){
+            System.out.println(name);
+        }
+    }
+
+}
+
+################################################
+        ################################################
+        import java.io.*;
+        import java.lang.reflect.*;
+        import java.util.*;
+        import java.util.regex.*;
+        import java.security.*;
+
+
+public class Solution {
+
+    public static void main(String[] args) throws Exception {
+        DoNotTerminate.forbidExit();
+
+        try{
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            int num = Integer.parseInt(br.readLine().trim());
+            Object o;// Must be used to hold the reference of the instance of the class Solution.Inner.Private
+            o = new Inner().new Private();
+            System.out.println(num+" is "+((Inner.Private)o).powerof2(num));
+            System.out.println("An instance of class: " + o.getClass().getCanonicalName() + " has been created");
+
+// alternate
+// System.out.println(num + " is " + ((Inner.Private) (o = new Inner().new Private())).powerof2(num));
+
+        }//end of try
+
+        catch (DoNotTerminate.ExitTrappedException e) {
+            System.out.println("Unsuccessful Termination!!");
+        }
+    }//end of main
+    static class Inner{
+        private class Private{
+            private String powerof2(int num){
+                return ((num&num-1)==0)?"power of 2":"not a power of 2";
+            }
+        }
+    }//end of Inner
+
+}//end of Solution
+
+class DoNotTerminate { //This class prevents exit(0)
+
+    public static class ExitTrappedException extends SecurityException {
+
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static void forbidExit() {
+        final SecurityManager securityManager = new SecurityManager() {
+            @Override
+            public void checkPermission(Permission permission) {
+                if (permission.getName().contains("exitVM")) {
+                    throw new ExitTrappedException();
+                }
+            }
+        };
+        System.setSecurityManager(securityManager);
+    }
+}
+
+################################################
+        ################################################
+        # Day 29: Bitwise AND
+        # https://www.hackerrank.com/challenges/30-bitwise-and/problem
+
+        import java.io.*;
+        import java.util.*;
+
+public class Solution {
+
+    public static void getBitwiseAND(int n, int k) {
+        int max = 0;
+        for( int i = 1; i <= n; i++ ){
+            for (int j = i+1; j <= n; j++) {
+                int t = i & j;
+                if((t<k) & (t>max)){
+                    max = t;
+                }
+            }
+        }
+        System.out.println(max);
+    }
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner in = new Scanner(System.in);
+        int nn = Integer.parseInt(in.nextLine());
+        for(int i = 0; i < nn; i++) {
+            String[] S = in.nextLine().split(" ");
+            int n = Integer.parseInt(S[0]);
+            int k = Integer.parseInt(S[1]);
+            getBitwiseAND(n,k);
+        }
+        in.close();
+    }
+}
+################################################
+        ################################################
+        #https://www.hackerrank.com/challenges/prime-checker/problem
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+        import java.lang.reflect.*;
+
+        import static java.lang.System.in;
+class Prime {
+    public void checkPrime(int... args){
+        for(int arg : args){
+            int prime = 1;
+            if(arg<2) prime=0;
+            for(int i = 2 ; i < arg ; i++){
+                if( arg%i == 0)
+                    prime = 0;
+            }
+            System.out.print(prime == 1?arg+" ":"");
+        }
+        System.out.println();
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) {
+        try{
+            BufferedReader br=new BufferedReader(new InputStreamReader(in));
+            int n1=Integer.parseInt(br.readLine());
+            int n2=Integer.parseInt(br.readLine());
+            int n3=Integer.parseInt(br.readLine());
+            int n4=Integer.parseInt(br.readLine());
+            int n5=Integer.parseInt(br.readLine());
+            Prime ob=new Prime();
+            ob.checkPrime(n1);
+            ob.checkPrime(n1,n2);
+            ob.checkPrime(n1,n2,n3);
+            ob.checkPrime(n1,n2,n3,n4,n5);
+            Method[] methods=Prime.class.getDeclaredMethods();
+            Set<String> set=new HashSet<>();
+            boolean overload=false;
+            for(int i=0;i<methods.length;i++)
+            {
+                if(set.contains(methods[i].getName()))
+                {
+                    overload=true;
+                    break;
+                }
+                set.add(methods[i].getName());
+
+            }
+            if(overload)
+            {
+                throw new Exception("Overloading not allowed");
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+
+}
+
+################################################
+        ################################################
+        import java.util.*;
+        import java.security.*;
+interface Food {
+    public String getType();
+}
+class Pizza implements Food {
+    public String getType() {
+        return "Someone ordered a Fast Food!";
+    }
+}
+
+class Cake implements Food {
+
+    public String getType() {
+        return "Someone ordered a Dessert!";
+    }
+}
+class FoodFactory {
+    public Food getFood(String order) {
+
+        switch (order){
+            case "pizza": return new Pizza();
+            case "cake" : return new Cake();
+            default : return null;
+        }
+
+    }//End of getFood method
+
+}//End of factory class
+
+public class Solution {
+
+    public static void main(String args[]){
+        Do_Not_Terminate.forbidExit();
+
+        try{
+
+            Scanner sc=new Scanner(System.in);
+            //creating the factory
+            FoodFactory foodFactory = new FoodFactory();
+
+            //factory instantiates an object
+            Food food = foodFactory.getFood(sc.nextLine());
+
+
+            System.out.println("The factory returned "+food.getClass());
+            System.out.println(food.getType());
+        }
+        catch (Do_Not_Terminate.ExitTrappedException e) {
+            System.out.println("Unsuccessful Termination!!");
+        }
+    }
+
+}
+class Do_Not_Terminate {
+
+    public static class ExitTrappedException extends SecurityException {
+
+        private static final long serialVersionUID = 1L;
+    }
+
+    public static void forbidExit() {
+        final SecurityManager securityManager = new SecurityManager() {
+            @Override
+            public void checkPermission(Permission permission) {
+                if (permission.getName().contains("exitVM")) {
+                    throw new ExitTrappedException();
+                }
+            }
+        };
+        System.setSecurityManager(securityManager);
+    }
+}
+
+################################################
+        ################################################
+
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+        import java.lang.reflect.*;
+
+
+class Singleton{
+    private Singleton() {}
+    public String str;
+    private static Singleton singleton;
+    public static Singleton getSingleInstance() {
+        if(singleton == null) {
+            singleton = new Singleton();
+        }
+        return singleton;
+    }
+}
+
+
+################################################
+        ################################################
+        import java.io.*;
+        import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+
+        Scanner sc=new Scanner(System.in);
+        String A=sc.next();
+        String B=sc.next();
+        /* Enter your code here. Print output to STDOUT. */
+        System.out.println(A.length()+B.length());
+        System.out.println((A.compareTo(B)>0?"Yes":"No"));
+        System.out.println(Character.toUpperCase(A.charAt(0)) + A.substring(1) + " " + Character.toUpperCase(B.charAt(0)) + B.substring(1));
+    }
+}
+
+
+################################################
+        ################################################
+        import java.io.*;
+        import java.util.*;
+        import java.text.*;
+        import java.math.*;
+        import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        String S = in.next();
+        int start = in.nextInt();
+        int end = in.nextInt();
+        System.out.println(S.substring(start,end));
+    }
+}
+
+
+##############################
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+
+        Scanner sc=new Scanner(System.in);
+        String A=sc.next();
+        /* Enter your code here. Print output to STDOUT. */
+        String reversedA = new StringBuffer(A).reverse().toString();
+        if(A.equals(reversedA)){
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
+        }
+    }
+}
